@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Post a Job | AI Career Portal{% endblock %}
+{% block content %}
+<div class="card narrow">
+    <h1>Post a New Job</h1>
+    <form method="POST">
+        <label>Job Title</label>
+        <input type="text" name="title" required>
+
+        <label>Company</label>
+        <input type="text" name="company" placeholder="Our Company">
+
+        <label>Location</label>
+        <input type="text" name="location" placeholder="Remote / City">
+
+        <label>Job Type</label>
+        <select name="job_type">
+            <option>Full-time</option>
+            <option>Part-time</option>
+            <option>Internship</option>
+            <option>Contract</option>
+        </select>
+
+        <label>Description</label>
+        <textarea name="description" rows="6" required></textarea>
+
+        <label>Required Skills (comma separated — used for ATS scoring)</label>
+        <input type="text" name="required_skills" placeholder="e.g. Python, Flask, SQL, Machine Learning" required>
+
+        <button type="submit" class="btn">Post Job</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard | AI Career Portal{% endblock %}
+{% block content %}
+<h1>Recruiter Dashboard</h1>
+<p>Total applications received across your jobs: <strong>{{ total_applications }}</strong></p>
+
+<div class="dash-header">
+    <h2>My Job Postings</h2>
+    <a href="{{ url_for('new_job') }}" class="btn">+ Post New Job</a>
+</div>
+
+{% if jobs %}
+<table class="data-table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Location</th>
+            <th>Type</th>
+            <th>Applicants</th>
+            <th>Posted On</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for job in jobs %}
+        <tr>
+            <td>{{ job.title }}</td>
+            <td>{{ job.location or "Remote" }}</td>
+            <td>{{ job.job_type }}</td>
+            <td>{{ job.applicant_count }}</td>
+            <td>{{ job.created_at|format_date }}</td>
+            <td><a href="{{ url_for('view_applicants', job_id=job.id) }}" class="btn-small">View Applicants</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>You haven't posted any jobs yet.</p>
+{% endif %}
+{% endblock %}

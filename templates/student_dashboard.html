@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}My Dashboard | AI Career Portal{% endblock %}
+{% block content %}
+<h1>Welcome, {{ current_user.name }}</h1>
+<h2>My Applications</h2>
+
+{% if applications %}
+<table class="data-table">
+    <thead>
+        <tr>
+            <th>Job Title</th>
+            <th>Company</th>
+            <th>ATS Score</th>
+            <th>Matched Skills</th>
+            <th>Missing Skills</th>
+            <th>Status</th>
+            <th>Applied On</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for a in applications %}
+        <tr>
+            <td>{{ a.job_title }}</td>
+            <td>{{ a.job_company }}</td>
+            <td>
+                <span class="score-badge {% if a.ats_score >= 70 %}score-high{% elif a.ats_score >= 40 %}score-mid{% else %}score-low{% endif %}">
+                    {{ a.ats_score }}%
+                </span>
+            </td>
+            <td>{{ a.matched_skills or "-" }}</td>
+            <td>{{ a.missing_skills or "-" }}</td>
+            <td><span class="status status-{{ a.status|lower }}">{{ a.status }}</span></td>
+            <td>{{ a.applied_at|format_date }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>You haven't applied to any jobs yet. <a href="{{ url_for('index') }}">Browse open positions</a>.</p>
+{% endif %}
+{% endblock %}

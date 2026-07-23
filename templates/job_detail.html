@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}{{ job.title }} | AI Career Portal{% endblock %}
+{% block content %}
+<div class="card">
+    <h1>{{ job.title }}</h1>
+    <p class="job-meta">{{ job.company }} &middot; {{ job.location or "Remote" }} &middot; {{ job.job_type }}</p>
+
+    <h3>Description</h3>
+    <p>{{ job.description }}</p>
+
+    <h3>Required Skills</h3>
+    <p class="job-skills">{{ job.required_skills }}</p>
+
+    {% if current_user and current_user.role != 'admin' %}
+        {% if already_applied %}
+            <p class="flash flash-info">You've already applied to this job.</p>
+        {% else %}
+            <p class="hint">A one-time application fee applies before your resume is submitted.</p>
+            <a href="{{ url_for('apply_job', job_id=job.id) }}" class="btn">Apply Now</a>
+        {% endif %}
+    {% elif not current_user %}
+        <a href="{{ url_for('login') }}" class="btn">Log in to Apply</a>
+    {% endif %}
+</div>
+{% endblock %}

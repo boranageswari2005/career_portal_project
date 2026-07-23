@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Apply | {{ job.title }}{% endblock %}
+{% block content %}
+<div class="card narrow">
+    <h1>Apply for {{ job.title }}</h1>
+    <p class="job-meta">{{ job.company }} &middot; {{ job.location or "Remote" }}</p>
+    <p class="job-skills"><strong>Required skills:</strong> {{ job.required_skills }}</p>
+
+    <form method="POST" enctype="multipart/form-data">
+        <label>Upload Resume (PDF or DOCX, max 5MB)</label>
+        <input type="file" name="resume" accept=".pdf,.docx,.doc" required>
+        <button type="submit" class="btn">Submit Application</button>
+    </form>
+    <p class="hint">Your resume will be automatically analyzed and scored against this job's requirements using AI/NLP (TF-IDF similarity + skill matching).</p>
+</div>
+{% endblock %}

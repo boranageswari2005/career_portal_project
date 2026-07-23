@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Pay Application Fee | {{ job.title }}{% endblock %}
+{% block content %}
+<div class="card narrow" style="text-align:center;">
+    <h1>Application Fee</h1>
+    <p class="job-meta">{{ job.title }} at {{ job.company }}</p>
+    <p style="font-size:1.6rem; font-weight:700; margin:20px 0;">{{ amount_display }}</p>
+    <p class="hint">
+        A one-time application fee is required before your resume can be
+        submitted and ATS-scored for this job.
+    </p>
+
+    <button id="rzp-pay-btn" class="btn">Pay {{ amount_display }} with Razorpay</button>
+
+    <form id="verify-form" method="POST" action="{{ url_for('verify_payment', job_id=job.id) }}" style="display:none;">
+        <input type="hidden" name="razorpay_payment_id" id="razorpay_payment_id">
+        <input type="hidden" name="razorpay_order_id" id="razorpay_order_id">
+        <input type="hidden" name="razorpay_signature" id="razorpay_signature">
+    </form>
+
+    <form id="failed-form" method="POST" action="{{ url_for('payment_failed', job_id=job.id) }}" style="display:none;"></form>
+</div>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+document.getElementById('rzp-pay-btn').onclick = function (e) {
+    e.preventDefault();
+
+    var options = {
+        "key": "{{ razorpay_key_id }}",
+        "amount": "{{ amount }}",
+        "currency": "INR",
+        "name": "AI Career Portal",
+        "description": "Application fee — {{ job.title|e }}",
+        "order_id": "{{ order_id }}",
+        "handler": function (response) {
+            document.getElementById('razorpay_payment_id').value = response.razorpay_payment_id;
+            document.getElementById('razorpay_order_id').value = response.razorpay_order_id;
+            document.getElementById('razorpay_signature').value = response.razorpay_signature;
+            document.getElementById('verify-form').submit();
+        },
+        "modal": {
+            "ondismiss": function () {
+                // User closed the checkout without paying — no server call needed,
+                // they can just click "Pay" again next time they load this page.
+            }
+        },
+        "theme": { "color": "#2f5fdb" }
+    };
+
+    var rzp = new Razorpay(options);
+    rzp.on('payment.failed', function (response) {
+        document.getElementById('failed-form').submit();
+    });
+    rzp.open();
+};
+</script>
+{% endblock %}

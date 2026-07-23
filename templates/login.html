@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Login | AI Career Portal{% endblock %}
+{% block content %}
+<div class="card narrow">
+    <h1>Login</h1>
+    <form method="POST">
+        <label>Email</label>
+        <input type="email" name="email" required>
+
+        <label>Password</label>
+        <input type="password" name="password" required>
+
+        <button type="submit" class="btn">Login</button>
+    </form>
+    <p>New here? <a href="{{ url_for('register') }}">Create a student account</a></p>
+    <p class="hint">Admin demo login: admin@careerportal.com / admin123</p>
+</div>
+{% endblock %}

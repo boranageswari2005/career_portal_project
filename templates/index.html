@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Jobs | AI Career Portal{% endblock %}
+{% block content %}
+<div class="hero">
+    <h1>Find your next role</h1>
+    <p>Apply online, upload your resume, and get an instant AI-powered ATS score.</p>
+</div>
+
+<h2>Open Positions</h2>
+{% if jobs %}
+<div class="job-grid">
+    {% for job in jobs %}
+    <div class="job-card">
+        <h3><a href="{{ url_for('job_detail', job_id=job.id) }}">{{ job.title }}</a></h3>
+        <p class="job-meta">{{ job.company }} &middot; {{ job.location or "Remote" }} &middot; {{ job.job_type }}</p>
+        <p class="job-skills">{{ job.required_skills }}</p>
+        <a href="{{ url_for('job_detail', job_id=job.id) }}" class="btn-small">View &amp; Apply</a>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<p>No open positions right now. Check back soon!</p>
+{% endif %}
+{% endblock %}

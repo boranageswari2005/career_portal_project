@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Applicants | {{ job.title }}{% endblock %}
+{% block content %}
+<h1>Applicants for {{ job.title }}</h1>
+<p class="job-skills"><strong>Required skills:</strong> {{ job.required_skills }}</p>
+
+{% if applicants %}
+<table class="data-table">
+    <thead>
+        <tr>
+            <th>Candidate</th>
+            <th>Email</th>
+            <th>ATS Score</th>
+            <th>Matched Skills</th>
+            <th>Missing Skills</th>
+            <th>Resume</th>
+            <th>Status</th>
+            <th>Update</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for a in applicants %}
+        <tr>
+            <td>{{ a.student_name }}</td>
+            <td>{{ a.student_email }}</td>
+            <td>
+                <span class="score-badge {% if a.ats_score >= 70 %}score-high{% elif a.ats_score >= 40 %}score-mid{% else %}score-low{% endif %}">
+                    {{ a.ats_score }}%
+                </span>
+            </td>
+            <td>{{ a.matched_skills or "-" }}</td>
+            <td>{{ a.missing_skills or "-" }}</td>
+            <td><a href="{{ url_for('static', filename='uploads/' + a.resume_filename) }}" target="_blank">View</a></td>
+            <td><span class="status status-{{ a.status|lower }}">{{ a.status }}</span></td>
+            <td>
+                <form method="POST" action="{{ url_for('update_status', app_id=a.id) }}">
+                    <select name="status" onchange="this.form.submit()">
+                        {% for s in ["Applied", "Shortlisted", "Rejected", "Hired"] %}
+                        <option value="{{ s }}" {% if a.status == s %}selected{% endif %}>{{ s }}</option>
+                        {% endfor %}
+                    </select>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No applicants yet for this job.</p>
+{% endif %}
+{% endblock %}

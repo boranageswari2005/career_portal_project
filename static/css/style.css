@@ -1,0 +1,176 @@
+:root {
+    --primary: #2f5fdb;
+    --primary-dark: #1e3fa8;
+    --bg: #f5f7fb;
+    --card-bg: #ffffff;
+    --text: #1f2430;
+    --muted: #6b7280;
+    --border: #e5e8f0;
+    --success: #1a9e5c;
+    --danger: #d94b4b;
+    --warn: #c98a1a;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 32px;
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border);
+}
+
+.navbar .brand {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.nav-links a {
+    margin-left: 18px;
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+
+.nav-links a.cta {
+    background: var(--primary);
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 6px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 32px 20px 60px;
+}
+
+.hero {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: #fff;
+    padding: 40px 32px;
+    border-radius: 12px;
+    margin-bottom: 32px;
+}
+.hero h1 { margin: 0 0 8px; }
+.hero p { margin: 0; opacity: 0.9; }
+
+.job-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.job-card, .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.card.narrow { max-width: 480px; margin: 0 auto; }
+
+.job-card h3 a { color: var(--text); text-decoration: none; }
+.job-meta { color: var(--muted); font-size: 0.9rem; margin: 4px 0 10px; }
+.job-skills { font-size: 0.88rem; color: var(--muted); }
+
+.btn, .btn-small {
+    display: inline-block;
+    background: var(--primary);
+    color: #fff !important;
+    padding: 10px 18px;
+    border-radius: 6px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.95rem;
+    margin-top: 10px;
+}
+.btn-small { padding: 6px 12px; font-size: 0.85rem; }
+.btn:hover, .btn-small:hover { background: var(--primary-dark); }
+
+form label {
+    display: block;
+    margin: 14px 0 4px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+form input, form textarea, form select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-family: inherit;
+}
+
+.hint { color: var(--muted); font-size: 0.85rem; margin-top: 12px; }
+
+.flash {
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    font-size: 0.92rem;
+}
+.flash-success { background: #e5f7ee; color: var(--success); }
+.flash-danger { background: #fbe9e9; color: var(--danger); }
+.flash-info { background: #e8effd; color: var(--primary-dark); }
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--card-bg);
+    border-radius: 10px;
+    overflow: hidden;
+}
+.data-table th, .data-table td {
+    padding: 12px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.9rem;
+}
+.data-table th { background: #f0f2f8; }
+
+.score-badge {
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+}
+.score-high { background: #e5f7ee; color: var(--success); }
+.score-mid { background: #fdf3e0; color: var(--warn); }
+.score-low { background: #fbe9e9; color: var(--danger); }
+
+.status { padding: 3px 10px; border-radius: 20px; font-size: 0.8rem; }
+.status-applied { background: #e8effd; color: var(--primary-dark); }
+.status-shortlisted { background: #e5f7ee; color: var(--success); }
+.status-rejected { background: #fbe9e9; color: var(--danger); }
+.status-hired { background: #e5f7ee; color: var(--success); font-weight: 700; }
+
+.dash-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 24px;
+}
+
+footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.85rem;
+    padding: 20px;
+}

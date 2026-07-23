@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Register | AI Career Portal{% endblock %}
+{% block content %}
+<div class="card narrow">
+    <h1>Student Registration</h1>
+    <form method="POST">
+        <label>Full Name</label>
+        <input type="text" name="name" required>
+
+        <label>Email</label>
+        <input type="email" name="email" required>
+
+        <label>Phone</label>
+        <input type="text" name="phone">
+
+        <label>Skills (comma separated)</label>
+        <input type="text" name="skills" placeholder="e.g. Python, SQL, Communication">
+
+        <label>Password</label>
+        <input type="password" name="password" required>
+
+        <button type="submit" class="btn">Register</button>
+    </form>
+    <p>Already have an account? <a href="{{ url_for('login') }}">Log in</a></p>
+</div>
+{% endblock %}
