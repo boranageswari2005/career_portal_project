@@ -451,6 +451,7 @@ def seed_admin():
             print("Seeded default admin -> email: admin@careerportal.com / password: admin123")
 
 
+seed_admin()  # now runs no matter how the app is launched (gunicorn, flask run, python app.py)
+
 if __name__ == "__main__":
-    seed_admin()
     app.run(host="0.0.0.0", port=5000)
